@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item>
+
+    <shape android:shape="rectangle">
+
+        <gradient android:startColor="#201e20"
+            android:centerColor="@color/cardview_dark_background"
+            android:endColor="#201e20"/>
+        <corners android:bottomLeftRadius="10000dp"
+            android:topLeftRadius="10000dp"
+            android:topRightRadius="10000dp"
+            android:bottomRightRadius="10000dp"/>
+
+        <stroke android:width="3.5dp" android:color="#7a2048"/>
+
+    </shape>
+
+</item>
+</selector>

@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">MyCalculator</string>
+    <string name="One">1</string>
+    <string name="Two">2</string>
+    <string name="Three">3</string>
+    <string name="Four">4</string>
+    <string name="Five">5</string>
+    <string name="Six">6</string>
+    <string name="Seven">7</string>
+    <string name="Eight">8</string>
+    <string name="Nine">9</string>
+    <string name="Zero">0</string>
+    <string name="Plus">+</string>
+    <string name="Minus">-</string>
+    <string name="Multiply">\u2623</string>
+    <string name="Divide">\u00F7</string>
+    <string name="Percent">%</string>
+    <string name="Clear">C</string>
+    <string name="Staples">( )</string>
+    <string name="Point">.</string>
+    <string name="PlusMinus">+/-</string>
+    <string name="BackSpace">\u232b</string>
+    <string name="MemClear">MC</string>
+    <string name="MemRead">MR</string>
+    <string name="MemMinus">M-</string>
+    <string name="MemPlus">M+</string>
+    <string name="Flip">\u2642</string>
+    <string name="Equal">=</string>
+    <string name="DisplayHint">Enter a val</string>
+    <string name="Left_Staple">(</string>
+    <string name="Right_Staple">)</string>
+
+    <string name="Sin">sin</string>
+    <string name="Cos">cos</string>
+    <string name="Tan">tan</string>
+    <string name="ASin">sin<sup><small>-1</small></sup></string>
+    <string name="ACos">cos<sup><small>-1</small></sup></string>
+    <string name="ATan">tan<sup><small>-1</small></sup></string>
+    <string name="NatLog">ln</string>
+    <string name="Log">log</string>
+    <string name="Sqrt">\u221a</string>
+    <string name="Factorial">!</string>
+    <string name="Pi">\u03C0</string>
+    <string name="E">e</string>
+    <string name="XPoweredBy3">x<sup><small>3</small></sup></string>
+    <string name="XPoweredByY">x<sup><small>y</small></sup></string>
+    <string name="XPoweredBy2">x<sup><small>2</small></sup></string>
+</resources>
