@@ -26,6 +26,7 @@ task clean(type: Delete) {
 ext {
     git = Grgit.open(currentDir: projectDir)
     gitVersionName = git.describe()
+    
     gitVersionCode = git.tag.list().size()
     gitVersionCodeTime = git.head().time
 }
