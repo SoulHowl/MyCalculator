@@ -176,16 +176,15 @@ class MainActivity : AppCompatActivity()
                 "%" ,
                 resources.getString(R.string.Divide) ,
                 resources.getString(R.string.Multiply),
-                "+" ,
                 "-" -> {
                     var textLen:Int = display.text.length
 
                     if (textLen != 0)
                     {
                         var selection:SpannableStringBuilder = display.text as SpannableStringBuilder
-                        selection.replace(textLen - 2, textLen - 1, "+")
+                        selection.replace(textLen - 1, textLen - 0, "+")
                         display.text = selection
-                        display.setSelection(textLen - 2)
+                        display.setSelection(textLen - 1)
                     }
                 }
                 else -> {
