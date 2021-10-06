@@ -184,7 +184,7 @@ class MainActivity : AppCompatActivity()
                         var selection:SpannableStringBuilder = display.text as SpannableStringBuilder
                         selection.replace(textLen - 1, textLen - 0, "+")
                         display.text = selection
-                        display.setSelection(textLen - 1)
+                        display.setSelection(textLen )
                     }
                 }
                 else -> {
