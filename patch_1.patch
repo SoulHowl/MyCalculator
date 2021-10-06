@@ -1,0 +1,17 @@
+Index: app/src/main/java/com/example/mycalculator/MainActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/mycalculator/MainActivity.kt b/app/src/main/java/com/example/mycalculator/MainActivity.kt
+--- a/app/src/main/java/com/example/mycalculator/MainActivity.kt	(revision 3ad3f9b79368e1ca006b095361248897ac763847)
++++ b/app/src/main/java/com/example/mycalculator/MainActivity.kt	(date 1633522046900)
+@@ -184,7 +184,7 @@
+                         var selection:SpannableStringBuilder = display.text as SpannableStringBuilder
+                         selection.replace(textLen - 1, textLen - 0, "+")
+                         display.text = selection
+-                        display.setSelection(textLen - 1)
++                        display.setSelection(textLen )
+                     }
+                 }
+                 else -> {
