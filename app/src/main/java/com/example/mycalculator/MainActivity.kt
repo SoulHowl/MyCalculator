@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity()
     private var stapleNum:Int = 0
     private lateinit var  previousCalculation:android.widget.TextView
     private lateinit var  display:android.widget.EditText
-
+    private var maxFigureNum:Int = 0
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
     }
@@ -25,13 +25,6 @@ class MainActivity : AppCompatActivity()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-
-        /*requestedOrientation = if(resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE)
-            android.content.pm.ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        else
-            android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT*/
 
 
 
@@ -179,9 +172,28 @@ class MainActivity : AppCompatActivity()
     {
         try {
             var ch:String = lastChar()
+            when(ch) {
+                "%" ,
+                resources.getString(R.string.Divide) ,
+                resources.getString(R.string.Multiply),
+                "+" ,
+                "-" -> {
+                    var textLen:Int = display.text.length
 
-            if (ch == ")" || ch == "!" || (ch == "I" || ch =="e") || ch.toInt()  in 0..9)
-                UpdateText(resources.getString(R.string.Plus))
+                    if (textLen != 0)
+                    {
+                        var selection:SpannableStringBuilder = display.text as SpannableStringBuilder
+                        selection.replace(textLen - 2, textLen - 1, "+")
+                        display.text = selection
+                        display.setSelection(textLen - 2)
+                    }
+                }
+                else -> {
+                    if (ch == ")" || ch == "!" || (ch == "I" || ch =="e") || ch.toInt()  in 0..9)
+                        UpdateText(resources.getString(R.string.Plus))
+                }
+            }
+
         }catch (e:Exception){
         }
     }
@@ -316,6 +328,9 @@ class MainActivity : AppCompatActivity()
 
         if (cursorPos != 0 && textLen != 0)
         {
+            var last:String = lastChar()
+
+
             var selection:SpannableStringBuilder = display.text as SpannableStringBuilder
             selection.replace(cursorPos - 1, cursorPos, "")
             display.text = selection
@@ -625,7 +640,7 @@ class MainActivity : AppCompatActivity()
         return selection
     }
 
-    private fun checkDoubleStaples()
+    private fun checkMultiplePoint()
     {
         //????????????????????
     }

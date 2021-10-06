@@ -10,8 +10,8 @@ android {
         applicationId "com.example.mycalculator"
         minSdk 21
         targetSdk 30
-        versionCode 1
-        versionName "1.0.0"
+        versionCode gitVersionCode
+        versionName gitVersionName
         minSdkVersion(21)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -46,15 +46,3 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
 
-def getGitCommand = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
-task prinGitLog{
-    println getGitCommand()
-}
