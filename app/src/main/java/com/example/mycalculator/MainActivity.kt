@@ -498,14 +498,7 @@ class MainActivity : AppCompatActivity()
 
             userExp = userExp.replace(resources.getString(R.string.Divide),"/")
             userExp = userExp.replace(resources.getString(R.string.Multiply),"*")
-            /*if(stapleNum < 0)
-            {
-                var n:Int = -1 * stapleNum
-                for(i in 1..n)
-                {
-                    userExp += ")"
-                }
-            }*/
+
             val parser = ExpressionParser()
 
             val result:String = parser.evaluate(userExp).toString()
