@@ -336,6 +336,7 @@
             android:layout_height="70dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/button_background"
+            android:onClick="plusMinusBtnPush"
             android:text="@string/PlusMinus"
             android:textColor="#ff9a8d"
             android:textSize="16sp"

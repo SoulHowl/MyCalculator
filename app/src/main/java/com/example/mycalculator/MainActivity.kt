@@ -163,11 +163,60 @@ class MainActivity : AppCompatActivity()
     {
         try {
             val ch:String = lastChar()
-            if (ch.toInt()  in 0..9)
+            if (checkPoint() && ch.toInt()  in 0..9)
                 UpdateText(resources.getString(R.string.Point))
         }catch (e:Exception){
         }
     }
+
+    private fun checkPoint():Boolean
+    {
+        var cursorPos:Int = display.selectionStart
+        var textLen:Int = display.text.length
+        if (cursorPos != 0 && textLen != 0) {
+            while(cursorPos < textLen-1 )
+            {
+                cursorPos++
+                if(display.text[cursorPos] == '.')
+                {
+                    return false
+                }
+                else if (display.text[cursorPos] == '0' || display.text[cursorPos] == '1' || display.text[cursorPos] == '2' ||
+                    display.text[cursorPos] == '3' || display.text[cursorPos] == '4' ||
+                    display.text[cursorPos] == '5' || display.text[cursorPos] == '6' ||
+                    display.text[cursorPos] == '7' || display.text[cursorPos] == '8' || display.text[cursorPos] == '9')
+                {
+                    continue
+                }
+                else
+                {
+                    break
+                }
+            }
+            while(cursorPos > 0 )
+            {
+                cursorPos--
+                if(display.text[cursorPos] == '.')
+                {
+                    return false
+                }
+                else if (display.text[cursorPos] == '0' || display.text[cursorPos] == '1' || display.text[cursorPos] == '2' ||
+                    display.text[cursorPos] == '3' || display.text[cursorPos] == '4' ||
+                    display.text[cursorPos] == '5' || display.text[cursorPos] == '6' ||
+                    display.text[cursorPos] == '7' || display.text[cursorPos] == '8' || display.text[cursorPos] == '9')
+                {
+                    continue
+                }
+                else
+                {
+                    return true
+                }
+
+            }
+        }
+        return true
+    }
+
     fun plusBtnPush(view:android.view.View)
     {
         try {
@@ -200,8 +249,26 @@ class MainActivity : AppCompatActivity()
     {
         try {
             val ch:String = lastChar()
-            if (ch == ")" || ch == "!" || (ch == "I" || ch =="e") || ch.toInt()  in 0..9 )
-                UpdateText(resources.getString(R.string.Minus))
+            when(ch) {
+                "%",
+                resources.getString(R.string.Divide),
+                resources.getString(R.string.Multiply),
+                "+" -> {
+                    var textLen: Int = display.text.length
+
+                    if (textLen != 0) {
+                        var selection: SpannableStringBuilder =
+                            display.text as SpannableStringBuilder
+                        selection.replace(textLen - 1, textLen - 0, "-")
+                        display.text = selection
+                        display.setSelection(textLen)
+                    }
+                }
+                else -> {
+                    if (ch == ")" || ch == "!" || (ch == "I" || ch == "e") || ch.toInt() in 0..9)
+                        UpdateText(resources.getString(R.string.Minus))
+                }
+            }
         }catch (e:Exception){
         }
     }
@@ -209,9 +276,26 @@ class MainActivity : AppCompatActivity()
     {
         try {
             val ch:String = lastChar()
+            when(ch) {
+                "%" ,
+                resources.getString(R.string.Multiply) ,
+                "-",
+                "+" -> {
+                    var textLen:Int = display.text.length
 
-            if (ch == ")" || ch == "!" || (ch == "I" || ch =="e") || ch.toInt()  in 0..9)
-                UpdateText(resources.getString(R.string.Divide))
+                    if (textLen != 0)
+                    {
+                        var selection:SpannableStringBuilder = display.text as SpannableStringBuilder
+                        selection.replace(textLen - 1, textLen - 0, resources.getString(R.string.Divide))
+                        display.text = selection
+                        display.setSelection(textLen )
+                    }
+                }
+                else -> {
+                    if (ch == ")" || ch == "!" || (ch == "I" || ch == "e") || ch.toInt() in 0..9)
+                        UpdateText(resources.getString(R.string.Divide))
+                }
+            }
         }catch (e:Exception){
         }
     }
@@ -219,8 +303,30 @@ class MainActivity : AppCompatActivity()
     {
         try {
             val ch:String = lastChar()
-            if (ch == ")" || ch == "!" || (ch == "I" || ch =="e") || ch.toInt()  in 0..9 )
-                UpdateText(resources.getString(R.string.Multiply))
+            when(ch) {
+                "%",
+                resources.getString(R.string.Divide),
+                "-",
+                "+" -> {
+                    var textLen: Int = display.text.length
+
+                    if (textLen != 0) {
+                        var selection: SpannableStringBuilder =
+                            display.text as SpannableStringBuilder
+                        selection.replace(
+                            textLen - 1,
+                            textLen - 0,
+                            resources.getString(R.string.Multiply)
+                        )
+                        display.text = selection
+                        display.setSelection(textLen)
+                    }
+                }
+                else -> {
+                    if (ch == ")" || ch == "!" || (ch == "I" || ch == "e") || ch.toInt() in 0..9)
+                        UpdateText(resources.getString(R.string.Multiply))
+                }
+            }
         }catch (e:Exception){
         }
     }
@@ -328,7 +434,46 @@ class MainActivity : AppCompatActivity()
         if (cursorPos != 0 && textLen != 0)
         {
             var last:String = lastChar()
-
+            when(last){
+                "c","o","s","s","i","n","t","a","N","l","g"->{
+                    var cursorPos:Int = display.selectionStart
+                    var textLen:Int = display.text.length
+                    if (cursorPos != 0 && textLen != 0) {
+                        var left:Int = 0
+                        var right:Int = textLen
+                        var f:Boolean = true
+                        while(cursorPos < textLen  && f)
+                        {
+                            cursorPos++
+                            var ll = lastChar2(cursorPos)
+                            when(ll){
+                                "c","o","s","s","i","n","t","a","N","l","g"-> continue
+                                else -> { right = cursorPos
+                                    f = false
+                                    break}
+                                }
+                        }
+                        f = true
+                        while(cursorPos > 0  && f)
+                        {
+                            cursorPos--
+                            var ll = lastChar2(cursorPos)
+                            when(ll){
+                                "c","o","s","s","i","n","t","a","N","l","g"-> continue
+                                else -> { left = cursorPos
+                                    f = false
+                                    break}
+                            }
+                        }
+                        var selection1:SpannableStringBuilder = display.text as SpannableStringBuilder
+                                selection1.replace(left, right, "")
+                        display.text = selection1
+                        display.setSelection(cursorPos)
+                        stapleNum-=1
+                        return
+                    }
+                }
+            }
 
             var selection:SpannableStringBuilder = display.text as SpannableStringBuilder
             selection.replace(cursorPos - 1, cursorPos, "")
@@ -353,7 +498,14 @@ class MainActivity : AppCompatActivity()
 
             userExp = userExp.replace(resources.getString(R.string.Divide),"/")
             userExp = userExp.replace(resources.getString(R.string.Multiply),"*")
-
+            /*if(stapleNum < 0)
+            {
+                var n:Int = -1 * stapleNum
+                for(i in 1..n)
+                {
+                    userExp += ")"
+                }
+            }*/
             val parser = ExpressionParser()
 
             val result:String = parser.evaluate(userExp).toString()
@@ -361,7 +513,7 @@ class MainActivity : AppCompatActivity()
             display.setText(result)
             display.setSelection(result.length)
         }catch (e:Exception){
-            previousCalculation.text = "Error in expression!"
+            previousCalculation.text = "Can't resolve"
         }
     }
     fun sinBtnPush(view:android.view.View)
@@ -627,6 +779,59 @@ class MainActivity : AppCompatActivity()
             UpdateText("ln(")
         }
     }
+
+    fun plusMinusBtnPush(view:android.view.View)
+    {
+        try {
+            val ch:String = lastChar()
+            var cursorPos:Int = display.selectionStart
+            var textLen:Int = display.text.length
+            if (ch.toInt()  in 0..9) {
+                if (cursorPos != 0 && textLen != 0) {
+                    while (cursorPos > 0) {
+                        cursorPos--
+                        if (display.text[cursorPos] == '-') {
+                            if (cursorPos != 0) {
+                                if (display.text[--cursorPos] == '(') {
+                                    var selection1: SpannableStringBuilder =
+                                        display.text as SpannableStringBuilder
+                                    selection1.replace(cursorPos, cursorPos + 2, "")
+                                    display.text = selection1
+                                    display.setSelection(cursorPos)
+                                    stapleNum += 1
+                                    return
+                                }
+                            }
+                            var selection1: SpannableStringBuilder =
+                                display.text as SpannableStringBuilder
+                            selection1.replace(cursorPos, cursorPos + 1, "")
+                            display.text = selection1
+                            display.setSelection(cursorPos)
+                            return
+                        } else if (display.text[cursorPos] == '0' || display.text[cursorPos] == '1' || display.text[cursorPos] == '2' ||
+                            display.text[cursorPos] == '3' || display.text[cursorPos] == '4' ||
+                            display.text[cursorPos] == '5' || display.text[cursorPos] == '6' ||
+                            display.text[cursorPos] == '7' || display.text[cursorPos] == '8' || display.text[cursorPos] == '9'
+                            || display.text[cursorPos] == '.'
+                        ) {
+                            continue
+                        } else {
+                            cursorPos++
+                            break
+                        }
+                    }
+                    var selection1: SpannableStringBuilder =
+                        display.text as SpannableStringBuilder
+                    selection1.replace(cursorPos,cursorPos+1,"(-"+ display.text[cursorPos])
+                    stapleNum -=1
+                    display.text = selection1
+                    display.setSelection(cursorPos)
+                }
+            }
+        }catch (e:Exception){
+        }
+    }
+
     private fun lastChar():String
     {
         var cursorPos:Int = display.selectionStart
@@ -637,6 +842,23 @@ class MainActivity : AppCompatActivity()
             "777"
         }
         return selection
+    }
+
+    private fun lastChar2(cursorPos:Int):String
+    {
+        try {
+            var textLen:Int = display.text.length
+            var selection:String = if (cursorPos != 0 && textLen != 0) {
+                display.text.substring(cursorPos - 1, cursorPos)
+            } else {
+                "777"
+            }
+            return selection
+        }
+        catch (e:Exception){
+            return "777"
+        }
+
     }
 
 }

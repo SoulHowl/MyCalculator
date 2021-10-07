@@ -26,7 +26,21 @@ task clean(type: Delete) {
 ext {
     git = Grgit.open(currentDir: projectDir)
     gitVersionName = git.describe()
-    
+    gitStr = gitVersionName
+    int i = 0
+    while(gitStr[i] != 'g' && i < gitStr.length())
+        i++
+    gitStr = gitStr.substring(0,i-1)
+    i = 0
+
+    int j = 0
+    while(gitStr[i] != '-') {
+        if (gitStr[i] == '.')
+            j = i
+        i++
+    }
+    gitStr = gitStr.substring(0,j+1) + gitStr.substring(i+1,gitStr.length()) + ".0"
+    gitVersionName = gitStr
     gitVersionCode = git.tag.list().size()
     gitVersionCodeTime = git.head().time
 }
@@ -42,24 +56,4 @@ task printVersion() {
 
 
 
-
-
-
-
-
-
-
-
-def getGitCommand = { ->
-    def stdout = new ByteArrayOutputStream()
-    exec {
-        commandLine 'git', 'log','--date=local','--name-status','--after="2018.07.19"'
-        standardOutput = stdout
-    }
-    return stdout.toString().trim()
-}
-
-task prinGitLog{
-    println getGitCommand()
-}
 
