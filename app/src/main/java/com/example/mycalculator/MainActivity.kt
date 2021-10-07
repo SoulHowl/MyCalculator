@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity()
     private var stapleNum:Int = 0
     private lateinit var  previousCalculation:android.widget.TextView
     private lateinit var  display:android.widget.EditText
-    private var maxFigureNum:Int = 0
+
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
     }
@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity()
         display.setText(String.format("%s%s%s",leftStr,strToAdd, rightStr))
         display.setSelection(cursorPos + strToAdd.length)
     }
-    //gachi 2642 sqrt 221a
+
     fun zeroBtnPush(view:android.view.View)
     {
         try {
@@ -390,7 +390,7 @@ class MainActivity : AppCompatActivity()
                     return
                 if (ch == ")" || ch == "(" || ch == "!" || (ch == "I" || ch =="e" || ch == "777")
                     || ch.toInt()  in 0..9 ){
-                    previousCalculation.text = "(M) " + previousCalculation.text
+                    previousCalculation.text = "(M) "
                     UpdateText("+$memVal")
                 }
             }
@@ -400,7 +400,7 @@ class MainActivity : AppCompatActivity()
     {
         if(!demo)
         {
-            previousCalculation.text = "(M) " + previousCalculation.text
+            previousCalculation.text = "(M) "
             memVal = ""
         }
     }
