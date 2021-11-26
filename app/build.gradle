@@ -8,7 +8,7 @@ android {
     compileSdk 30
 
     defaultConfig {
-        applicationId "com.example.mycalculator"
+        applicationId "com.example.calculator"
         minSdk 21
         targetSdk 30
         versionCode gitVersionCode

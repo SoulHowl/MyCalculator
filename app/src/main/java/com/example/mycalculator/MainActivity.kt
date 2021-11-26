@@ -435,7 +435,54 @@ class MainActivity : AppCompatActivity()
         {
             var last:String = lastChar()
             when(last){
-                "c","o","s","s","i","n","t","a","N","l","g"->{
+                "(" ->{
+                    if(--cursorPos > 0)
+                    {
+                        var last2:String = lastChar2(cursorPos)
+                        when(last2){
+                            "c","o","s","s","i","n","t","a","N","l","g","I","y","P" -> {
+                                var cursorPos:Int = display.selectionStart
+                                var textLen:Int = display.text.length
+                                if (cursorPos != 0 && textLen != 0) {
+                                    var left:Int = 0
+                                    var right:Int = textLen
+                                    var f:Boolean = true
+                                    while(cursorPos < textLen  && f)
+                                    {
+                                        cursorPos++
+                                        var ll = lastChar2(cursorPos)
+                                        when(ll){
+                                            "c","o","s","s","i","n","t","a","N","l","g","I","y","P"-> continue
+                                            else -> { right = cursorPos
+                                                f = false
+                                                break}
+                                        }
+                                    }
+                                    f = true
+                                    while(cursorPos > 0  && f)
+                                    {
+                                        cursorPos--
+                                        var ll = lastChar2(cursorPos)
+                                        when(ll){
+                                            "c","o","s","s","i","n","t","a","N","l","g","I","y","P"-> continue
+                                            else -> { left = cursorPos
+                                                f = false
+                                                break}
+                                        }
+                                    }
+                                    var selection1:SpannableStringBuilder = display.text as SpannableStringBuilder
+                                    selection1.replace(left, right, "")
+                                    display.text = selection1
+                                    display.setSelection(cursorPos)
+                                    stapleNum-=1
+                                    return
+                                }
+                            }
+
+                        }
+                    }
+                }
+                "c","o","s","s","i","n","t","a","N","l","g","I","y","P"->{
                     var cursorPos:Int = display.selectionStart
                     var textLen:Int = display.text.length
                     if (cursorPos != 0 && textLen != 0) {
@@ -447,7 +494,7 @@ class MainActivity : AppCompatActivity()
                             cursorPos++
                             var ll = lastChar2(cursorPos)
                             when(ll){
-                                "c","o","s","s","i","n","t","a","N","l","g"-> continue
+                                "c","o","s","s","i","n","t","a","N","l","g","I","y","P"-> continue
                                 else -> { right = cursorPos
                                     f = false
                                     break}
@@ -459,7 +506,7 @@ class MainActivity : AppCompatActivity()
                             cursorPos--
                             var ll = lastChar2(cursorPos)
                             when(ll){
-                                "c","o","s","s","i","n","t","a","N","l","g"-> continue
+                                "c","o","s","s","i","n","t","a","N","l","g","I","y","P"-> continue
                                 else -> { left = cursorPos
                                     f = false
                                     break}
@@ -498,9 +545,24 @@ class MainActivity : AppCompatActivity()
 
             userExp = userExp.replace(resources.getString(R.string.Divide),"/")
             userExp = userExp.replace(resources.getString(R.string.Multiply),"*")
-
+            userExp = userExp.replace("log","log10")
             val parser = ExpressionParser()
 
+            var staples:Int = 0
+            for(i in userExp)
+            {
+                if(i == '(')
+                    staples -=1
+                else if(i == ')')
+                    staples += 1
+            }
+            if(staples < 0)
+            {
+                staples *= -1
+                for(i in 1..staples) {
+                    userExp += ")"
+                }
+            }
             val result:String = parser.evaluate(userExp).toString()
             tempVal = result
             display.setText(result)
@@ -524,6 +586,10 @@ class MainActivity : AppCompatActivity()
                     UpdateText("sin(")
                 }
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
             stapleNum -= 1
             UpdateText("sin(")
@@ -544,6 +610,10 @@ class MainActivity : AppCompatActivity()
                     stapleNum -= 1
                     UpdateText("cos(")
                 }
+            }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
             }
         }catch (e:Exception){
             stapleNum -= 1
@@ -567,6 +637,10 @@ class MainActivity : AppCompatActivity()
                     UpdateText("tan(")
                 }
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
             stapleNum -= 1
             UpdateText("tan(")
@@ -589,6 +663,10 @@ class MainActivity : AppCompatActivity()
                     UpdateText("asin(")
                 }
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
             stapleNum -= 1
             UpdateText("asin(")
@@ -608,6 +686,10 @@ class MainActivity : AppCompatActivity()
                     stapleNum -= 1
                     UpdateText("acos(")
                 }
+            }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
             }
         }catch (e:Exception){
             stapleNum -= 1
@@ -629,6 +711,10 @@ class MainActivity : AppCompatActivity()
                     UpdateText("atan(")
                 }
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
             stapleNum -= 1
             UpdateText("atan(")
@@ -645,6 +731,10 @@ class MainActivity : AppCompatActivity()
                     UpdateText("+PI")
                 else
                     UpdateText("PI")
+            }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
             }
         }catch (e:Exception){
             UpdateText("PI")
@@ -663,6 +753,10 @@ class MainActivity : AppCompatActivity()
                 else
                     UpdateText("e")
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
             UpdateText("e")
         }
@@ -674,6 +768,10 @@ class MainActivity : AppCompatActivity()
                 val ch: String = lastChar()
                 if (ch == ")" || ch.toInt() in 0..9)
                     UpdateText("!")
+            }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
             }
         }catch (e:Exception){
         }
@@ -693,6 +791,10 @@ class MainActivity : AppCompatActivity()
                     1
                 }
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
             UpdateText("sqrt(")
         }
@@ -705,6 +807,10 @@ class MainActivity : AppCompatActivity()
                 if (ch == ")" || (ch == "I" || ch == "e") || ch.toInt() in 0..9)
                     UpdateText("^(2)")
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
         }
     }
@@ -715,6 +821,10 @@ class MainActivity : AppCompatActivity()
                 val ch: String = lastChar()
                 if (ch == ")" || (ch == "I" || ch == "e") || ch.toInt() in 0..9)
                     UpdateText("^(3)")
+            }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
             }
         }catch (e:Exception){
         }
@@ -729,6 +839,10 @@ class MainActivity : AppCompatActivity()
                     UpdateText("^(")
                 }
             }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
+            }
         }catch (e:Exception){
         }
     }
@@ -740,12 +854,16 @@ class MainActivity : AppCompatActivity()
                 if (ch == ".")
                     return
                 stapleNum -= if (ch == ")" || ch == "!" || (ch == "I" || ch == "e") || ch.toInt() in 0..9) {
-                    UpdateText("+log10(")
+                    UpdateText("+log(")
                     1
                 } else {
-                    UpdateText("log10(")
+                    UpdateText("log(")
                     1
                 }
+            }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
             }
         }catch (e:Exception){
             stapleNum -= 1
@@ -766,6 +884,10 @@ class MainActivity : AppCompatActivity()
                     UpdateText("ln(")
                     1
                 }
+            }
+            else
+            {
+                previousCalculation.text = "It's Demo version"
             }
         }catch (e:Exception){
             stapleNum -= 1
